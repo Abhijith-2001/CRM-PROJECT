@@ -1,0 +1,8 @@
+                        ORM QUERRIES
+                    -------------------
+
+
+Students.objects.create(first_name = 'Abhijith',
+                       last_name = 'V B',
+                       photo = 'abhi.jpg'
+                       email ='abhijith@gmail.com')
