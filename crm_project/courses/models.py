@@ -10,6 +10,8 @@ from django.db import models
 from students.models import BaseClass
 
 class Courses(BaseClass):
+    
+    
 
     name = models.CharField(max_length=60)
 

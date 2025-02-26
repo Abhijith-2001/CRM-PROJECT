@@ -52,26 +52,60 @@ class DashBoardView(View):
 @method_decorator(permission_role(roles = ['ADMIN','Sales','TRAINER','ACADEMIC COUNSELLOR']),name='dispatch')
 class StudentView(View):
     
-    def get(self,request,*args,**kwargs):
+    # def get(self,request,*args,**kwargs):
         
-        query = request.GET.get('query')
+    #     query = request.GET.get('query')
         
-        student = PersonalDetails.objects.filter(active_status = True)
+    #     role = request.user.role
         
-        if query:
+    #     if role in ['TRAINER']:
             
-            student = PersonalDetails.objects.filter(Q(active_status = True) & (Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(email__exact=query) | Q(contact_num__icontains=query) | Q(house_name__icontains=query) | Q(post_office__icontains=query) | Q(pincode__icontains=query)   | Q(district__icontains=query) | Q(batch__name__icontains=query) | Q(course__code__icontains=query) | Q(trainer__first_name__icontains=query) | Q(adm_num__icontains=query)))
-                                                                                                                # __contains is used to check if it is there in the var.case sensitive.only works with text or char field.
-                                                                                                                # __icontains is used to check if it is there in the var.case insensitive.only works with text or char field.
-                                                                                                                # __name is used in case of foreign key fields like course,batch,...etc.
+    #         student = PersonalDetails.objects.filter(active_status = True,trainer__profile = request.user) # TO only display the students of the trainer that is logged in.
+            
+    #         if query:
+            
+    #             student = PersonalDetails.objects.filter(Q(active_status = True) & Q(trainer__profile = request.user) & (Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(email__exact=query) | Q(contact_num__icontains=query) | Q(house_name__icontains=query) | Q(post_office__icontains=query) | Q(pincode__icontains=query)   | Q(district__icontains=query) | Q(batch__name__icontains=query) | Q(course__code__icontains=query) | Q(trainer__first_name__icontains=query) | Q(adm_num__icontains=query)))
         
-        # student = PersonalDetails.objects.all()
+    #     else:
+            
+    #         student = PersonalDetails.objects.filter(active_status = True)
+        
+    #         if query:
+                
+    #             student = PersonalDetails.objects.filter(Q(active_status = True) & (Q(first_name__icontains=query) | Q(last_name__icontains=query) | Q(email__exact=query) | Q(contact_num__icontains=query) | Q(house_name__icontains=query) | Q(post_office__icontains=query) | Q(pincode__icontains=query)   | Q(district__icontains=query) | Q(batch__name__icontains=query) | Q(course__code__icontains=query) | Q(trainer__first_name__icontains=query) | Q(adm_num__icontains=query)))
+    #                                                                                                             # __contains is used to check if it is there in the var.case sensitive.only works with text or char field.
+    #                                                                                                             # __icontains is used to check if it is there in the var.case insensitive.only works with text or char field.
+    #                                                                                                             # __name is used in case of foreign key fields like course,batch,...etc.
+        
+    #     # student = PersonalDetails.objects.all()
         
         
-        data = {'students':student,'query':query}
+    #     data = {'students':student,'query':query}
         
-        return render(request,'students/students.html',context=data)
+    #     return render(request,'students/students.html',context=data)
     
+    def get(self, request, *args, **kwargs):
+        query = request.GET.get('query')
+        role = request.user.role
+
+        # Base Queryset
+        student = PersonalDetails.objects.filter(active_status=True)
+
+        if role == 'TRAINER':
+            student = student.filter(trainer__profile=request.user)  # Restrict to trainer's students
+
+        if query:
+            search_filters = Q(first_name__icontains=query) | Q(last_name__icontains=query) | \
+                            Q(email__exact=query) | Q(contact_num__icontains=query) | \
+                            Q(house_name__icontains=query) | Q(post_office__icontains=query) | \
+                            Q(pincode__icontains=query) | Q(district__icontains=query) | \
+                            Q(batch__name__icontains=query) | Q(course__code__icontains=query) | \
+                            Q(trainer__first_name__icontains=query) | Q(adm_num__icontains=query)
+
+            student = student.filter(search_filters)
+
+        return render(request, 'students/students.html', {'students': student, 'query': query})
+        
     
     
 @method_decorator(permission_role(roles = ['ADMIN','Sales']),name='dispatch')

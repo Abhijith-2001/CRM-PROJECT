@@ -9,7 +9,7 @@ from students.models import BaseClass,DistrictChoices
 
 # Create your models here.
 
-class Trainers(BaseClass):
+class AcademicCounsellors(BaseClass):
     
     profile = models.OneToOneField('authentication.Profile',on_delete=models.CASCADE)
 
@@ -19,7 +19,7 @@ class Trainers(BaseClass):
 
     employee_id = models.CharField(max_length=10)
 
-    photo = models.ImageField(upload_to='trainers')
+    photo = models.ImageField(upload_to='academic-counsellor')
 
     email = models.EmailField()
 
@@ -37,18 +37,17 @@ class Trainers(BaseClass):
     
     stream = models.CharField(max_length=25)
 
-    id_card = models.FileField(upload_to='trainers/idproof')
+    id_card = models.FileField(upload_to='academic-counsellor/idproof')
 
     # course = models.ForeignKey('Courses',on_delete=models.CASCADE) # when a course is deleted the trainers are removed.
     
-    course = models.ForeignKey('courses.Courses',null=True,on_delete=models.SET_NULL) # when a course is deleted the trainers are Kept.
-
+    
     def __str__(self):
 
         return f'{self.first_name} {self.last_name}'
     
     class Meta:
 
-        verbose_name = 'Trainers'
+        verbose_name = 'AcademicCounsellor'
 
-        verbose_name_plural ='Trainers'
+        verbose_name_plural ='Academic Counsellors'
