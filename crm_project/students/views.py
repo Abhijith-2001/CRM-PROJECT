@@ -239,7 +239,7 @@ class StudentDetailView(View):
 
     
     
-# @method_decorator(permission_role(roles = ['ADMIN','Sales']),name='dispatch') 
+@method_decorator(permission_role(roles = ['ADMIN','Sales']),name='dispatch') 
 class StudentDeleteView(View):
     
     
