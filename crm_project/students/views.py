@@ -93,7 +93,10 @@ class StudentView(View):
 
         if role == 'TRAINER':
             student = student.filter(trainer__profile=request.user)  # Restrict to trainer's students
-
+            
+        if role == 'ACADEMIC COUNSELLOR':
+            student = student.filter(batch__academic_counsellor__profile=request.user)  # Restrict to Counsellor's students
+            
         if query:
             search_filters = Q(first_name__icontains=query) | Q(last_name__icontains=query) | \
                             Q(email__exact=query) | Q(contact_num__icontains=query) | \
@@ -140,6 +143,7 @@ class RegisterView(View):
                 print(password)  # Note Password from Terminal. 
                                     # >>  Renji@gmail.com - CDwfmw3T 
                                     # >> vishnu@gmail.com - cLazxyzQ
+                                    # >> jaggu@gmail.com  - VojkpSVe
                 
                 profile  =  Profile.objects.create_user(username=username,password=password,role='STUDENT')
                 

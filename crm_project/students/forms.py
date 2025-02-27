@@ -107,6 +107,25 @@ class StudentRegisterForm(forms.ModelForm):
     # )
     
     
+    # def clean(self):
+        
+    #     cleaned_data = super().clean()
+        
+    #     pincode = cleaned_data.get('pincode')
+        
+    #     email = cleaned_data.get('email')
+        
+    #     if PersonalDetails.objects.filter(profile__username = email).exists():
+            
+    #         self.add_error('email',"This Email is already Registered")
+        
+    #     if len(str(pincode))<6:
+            
+    #         self.add_error('pincode','pincode Must Be 6 Digits !!!!!')
+            
+    #     return cleaned_data
+    
+    
     def clean(self):
         
         cleaned_data = super().clean()
@@ -115,15 +134,18 @@ class StudentRegisterForm(forms.ModelForm):
         
         email = cleaned_data.get('email')
         
-        if PersonalDetails.objects.filter(profile__username = email).exists():
-            
-            self.add_error('email',"This Email is already Registered")
+        # Check if the instance exists (i.e., it's not a new object)
         
-        if len(str(pincode))<6:
+        if not self.instance.uuid:  # this means the object doesn't exist yet (new registration)
             
-            self.add_error('pincode','pincode Must Be 6 Digits !!!!!')
+            if PersonalDetails.objects.filter(profile__username=email).exists():
+                self.add_error('email', "This Email is already Registered")
+        
+        if len(str(pincode)) < 6:
+            self.add_error('pincode', 'Pincode must be 6 digits!')
             
         return cleaned_data
+
     
     
     def __init__(self, *args, **kwargs):
