@@ -144,6 +144,7 @@ class RegisterView(View):
                                     # >>  Renji@gmail.com - CDwfmw3T 
                                     # >> vishnu@gmail.com - cLazxyzQ
                                     # >> jaggu@gmail.com  - VojkpSVe
+                                    # >> pasha@gmail.com  - tVRhMmcR
                 
                 profile  =  Profile.objects.create_user(username=username,password=password,role='STUDENT')
                 

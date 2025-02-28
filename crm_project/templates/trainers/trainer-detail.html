@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block section %}
+{% comment %} <main class="h-screen flex items-center justify-center bg-gray-900 text-gray-300">
+    <div class="bg-gray-800 shadow-lg rounded-2xl p-8 w-full max-w-md text-center">
+        <!-- Profile Picture -->
+        <div class="flex justify-center">
+            <img src="{{ student.photo.url }}" 
+                 alt="Profile Photo" 
+                 class="w-32 h-32 rounded-full border-4 border-purple-500 shadow-md">
+        </div>
+
+        <!-- Student Info -->
+        <h2 class="text-2xl font-semibold text-white mt-4">
+            {{ student.first_name }} {{ student.last_name }}
+        </h2>
+        <p class="text-white font-semibold">Admission Number: {{ student.adm_num }}</p>
+
+        <div class="mt-6 space-y-3 text-gray-400">
+            <p><span class="text-white font-semibold">Course:</span> {{ student.course }}</p>
+            <p><span class="text-white font-semibold">Trainer:</span> {{ student.trainer_name }}</p>
+            <p><span class="text-white font-semibold">Join Date:</span> {{ student.join_date | date:"d-m-Y" }}</p>
+            <p><span class="text-white font-semibold">Phone:</span> {{ student.contact_num }}</p>
+            <p><span class="text-white font-semibold">Address:</span></p>
+            <p>{{ student.house_name }}, {{ student.post_office }} PO</p>
+            <p>PIN: {{ student.pincode }}</p>
+            <p>{{ student.district }}</p>
+        </div>
+
+        <!-- Back Button -->
+        <div class="mt-6">
+            <a href="{% url 'students' %}" 
+               class="px-6 py-2 bg-purple-600 text-white rounded-lg shadow-lg hover:bg-purple-100 transition">
+                ← Back to List
+            </a>
+        </div>
+    </div>
+</main> {% endcomment %}
+
+<main class="h-full pb-16 overflow-y-auto">
+    <div class="container grid px-6 py-4 mx-auto">
+      <div
+      class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+    >
+    <div class="flex items-center space-x-6">
+      <img src="{{ trainer.photo.url }}" alt="trainer Photo" class="w-56 h-56 rounded-lg  border-4 border-blue-500">
+      <div>
+        <h2 class="text-2xl font-semibold text-white">{{ trainer.first_name }} {{ trainer.last_name }}</h2>
+        <p class="text-sm text-gray-500">{{ trainer.email }}</p>
+        <p class="text-sm text-gray-500">{{ trainer.contact }}</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-6 my-6">
+      <span class="font-medium text-white">Employee ID:</span>
+      <span class="text-gray-600">{{ trainer.employee_id }}</span>
+    </div>
+    <div class="flex items-center space-x-6 my-6">
+      <span class="font-medium text-white">Course:</span>
+      <span class="text-gray-600">{{ trainer.course.code }}</span>
+    </div>
+    <div class="flex items-center space-x-6 my-6">
+      <span class="font-medium text-white">Qualifications:</span>
+      <span class="text-gray-600">{{ trainer.qualification }}</span>
+    </div>
+    <div class="flex items-center space-x-6 my-6">
+      <span class="font-medium text-white">Stream:</span>
+      <span class="text-gray-600">{{trainer.stream }}</span>
+    </div>
+    <!-- <div class="flex items-center space-x-6 my-6">
+      <span class="font-medium text-white">Join Date:</span>
+      <span class="text-gray-600">{{ trainer.join_date | date:'d-m-Y'}}</span>
+    </div> -->
+    <div class="flex items-center space-x-6 my-6">
+      <span class="font-medium text-white">Address:</span>
+      <span class="text-gray-600"></p>
+        <p>{{ trainer.house_name }}, {{ trainer.post_office }} PO</p>
+        <p>PIN: {{ trainer.pincode }}</p>
+        <p>{{ trainer.district }}</p></span>
+    </div>
+  
+    <!-- <div class="flex items-center space-x-6 my-6">
+      <span class="font-medium text-white">Trainer:</span>
+      <span class="text-gray-600">{{ trainer.trainer.first_name }} {{ trainer.trainer.last_name }}</span>
+    </div> -->
+      </div>
+      <!-- Back Button -->
+    <div class="mt-6">
+        <a href="{% url 'trainers' %}" 
+           class="px-6 py-2 bg-purple-600 text-white rounded-lg shadow-lg hover:bg-purple-100 transition">
+            ← Back to List
+        </a>
+    </div>
+    </div>
+  </main>
+{% endblock %}

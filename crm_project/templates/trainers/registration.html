@@ -1,0 +1,109 @@
+{% extends 'base.html' %} {% block section %}
+
+<main class="h-full pb-16 overflow-y-auto">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="container px-6 mx-auto grid">
+            <h1 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+                Trainer Registration
+            </h1>
+            
+            <!-- Personal Details -->
+            <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                Personal Details
+            </h4>
+            <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">First Name</span><span class="text-red-600">*</span>
+                    {{ forms.first_name }}
+                </label>
+
+                <label class="block text-sm mt-4">
+                    <span class="text-gray-700 dark:text-gray-400">Last Name</span><span class="text-red-600">*</span>
+                    {{ forms.last_name }}
+                </label>
+
+                <label class="block text-sm mt-4">
+                    <span class="text-gray-700 dark:text-gray-400">Photo</span><span class="text-red-600">*</span>
+                    {{ forms.photo }}
+                </label>
+
+                <label class="block text-sm mt-4">
+                    <span class="text-gray-700 dark:text-gray-400">Email</span><span class="text-red-600">*</span>
+                    {{ forms.email }}
+                </label>
+                
+                <label class="block text-sm mt-4">
+                    <span class="text-gray-700 dark:text-gray-400">Contact Number</span><span class="text-red-600">*</span>
+                    {{ forms.contact }}
+                </label>
+
+                <label class="block text-sm mt-4">
+                    <span class="text-gray-700 dark:text-gray-400">House Name</span><span class="text-red-600">*</span>
+                    {{ forms.house_name }}
+                </label>
+
+                <label class="block text-sm mt-4">
+                    <span class="text-gray-700 dark:text-gray-400">Post Office</span><span class="text-red-600">*</span>
+                    {{ forms.post_office }}
+                </label>
+                
+                <label class="block mt-4 text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">District</span>
+                    {{ forms.district }}
+                </label>
+                
+                <label class="block text-sm mt-4">
+                    <span class="text-gray-700 dark:text-gray-400">Pincode</span><span class="text-red-600">*</span>
+                    {{ forms.pincode }}
+                </label>
+            </div>
+            
+            <!-- Qualification Details -->
+            <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                Qualification Details
+            </h4>
+            <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                <label class="block text-sm mt-4">
+                    <span class="text-gray-700 dark:text-gray-400">Qualification</span><span class="text-red-600">*</span>
+                    {{ forms.qualification }}
+                </label>
+
+                <label class="block text-sm mt-4">
+                    <span class="text-gray-700 dark:text-gray-400">Stream</span><span class="text-red-600">*</span>
+                    {{ forms.stream }}
+                </label>
+            </div>
+
+            <!-- Course Details -->
+            <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                Course Details
+            </h4>
+            <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                <label class="block mt-4 text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Course</span><span class="text-red-600">*</span>
+                    {{ forms.course }}
+                </label>
+            </div>
+
+            <!-- ID Proof -->
+            <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                ID Proof
+            </h4>
+            <div class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800">
+                <label class="block text-sm mt-4">
+                    <span class="text-gray-700 dark:text-gray-400">Upload ID Card</span><span class="text-red-600">*</span>
+                    {{ forms.id_card }}
+                </label>
+            </div>
+
+            <div class="flex items-center justify-end">
+                <button type="submit" class="px-5 py-3 my-6 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
+                    Register
+                </button>
+            </div>
+        </div>
+    </form>
+</main>
+
+{% endblock %}

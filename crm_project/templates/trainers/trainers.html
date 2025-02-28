@@ -20,7 +20,7 @@
               {%check_user_role request 'ADMIN,SALES' as allow%}
               {%if allow%}
               <div>
-                <a href="{%url 'register'%}">
+                <a href="{%url 'registertrainer'%}">
                 <button class="px-5 py-3 font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple">
                   Add Student
                 </button>
@@ -37,18 +37,16 @@
                       class="text-xs font-semibold tracking-wide text-left text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800"
                     >
                       <th class="px-4 py-3">NAME</th>
-                      <th class="px-4 py-3">Admission Number</th>
+                      <th class="px-4 py-3">Employee ID</th>
                       <th class="px-4 py-3">ADDRESS</th>
                       <th class="px-4 py-3">Contact Number</th>
-                      <th class="px-4 py-3">Join Date</th>
                       <th class="px-4 py-3">Course</th>
-                      <th class="px-4 py-3">Trainer</th>
                       <th class="px-4 py-3">Actions</th>
                     </tr>
                   </thead>
                   <tbody
                     class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                    {%for student in students%}
+                    {%for trainer in trainers%}
                     <tr class="text-gray-700 dark:text-gray-400">
                       <td class="px-4 py-3">
                         <div class="flex items-center text-sm">
@@ -58,7 +56,7 @@
                           >
                             <img
                               class="object-cover w-full h-full rounded-full"
-                              src="{{student.photo.url}}"
+                              src="{{trainer.photo.url}}"
                               alt=""
                               loading="lazy"
                             />
@@ -68,37 +66,33 @@
                             ></div>
                           </div>
                           <div>
-                            <p class="font-semibold">{{student.first_name}} {{student.last_name}}</p>
+                            <p class="font-semibold">{{trainer.first_name}} {{trainer.last_name}}</p>
                             <p class="text-xs text-gray-600 dark:text-gray-400">
-                              {{student.batch.name}}
+                              {{trainer.batch.name}}
                             </p>
                           </div>
                         </div>
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        {{student.adm_num}}
+                        {{trainer.employee_id}}
                       </td>
                       <td class="px-4 py-3 text-xs">
-                        <p class="font-semibold">{{student.house_name}},</p>
-                        <p class="font-semibold">{{student.post_office}} PO,</p>
-                        <p class="font-semibold">PIN : {{student.pincode}}</p>
-                        <p class="font-semibold">{{student.district}}</p>
+                        <p class="font-semibold">{{trainer.house_name}},</p>
+                        <p class="font-semibold">{{trainer.post_office}} PO,</p>
+                        <p class="font-semibold">PIN : {{trainer.pincode}}</p>
+                        <p class="font-semibold">{{trainer.district}}</p>
                       </td>
                       <td class="px-4 py-3 text-sm">
-                        {{student.contact_num}}
+                        {{trainer.contact}}
                       </td>
+                      
                       <td class="px-4 py-3 text-sm">
-                        {{student.join_date | date:"d-m-Y"}}
+                        {{trainer.course}}
                       </td>
-                      <td class="px-4 py-3 text-sm">
-                        {{student.course}}
-                      </td>
-                      <td class="px-4 py-3 text-sm">
-                        {{student.trainer.first_name}} {{student.trainer.last_name}}
-                      </td>
+                      
                       <td class="px-4 py-3">
                         <div class="flex items-center space-x-4 text-sm">
-                          <a href="{% url 'student-detail' student.uuid %}" class="text-purple-600">
+                          <a href="{% url 'trainerdetail' trainer.uuid %}" class="text-purple-600">
                             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M10 4.4C3.4 4.4 0 10 0 10s3.4 5.6 10 5.6S20 10 20 10s-3.4-5.6-10-5.6zm0 9.6c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"></path>
                                 <circle cx="10" cy="10" r="2.5"></circle>
@@ -106,7 +100,7 @@
                         </a>
                         {%check_user_role request 'ADMIN,SALES' as allow%}
                         {%if allow%}
-                          <a href="{%url 'studentupdate' student.uuid %}">
+                          <a href="{%url 'trainerupdate' trainer.uuid %}">
                             <button
                               class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                               aria-label="Edit"
@@ -123,7 +117,7 @@
                               </svg>
                             </button>
                           </a>
-                          <a href="{% url 'studentdelete' student.uuid %}">
+                          <a href="{% url 'trainerdelete' trainer.uuid %}">
                             <button
                               class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                               aria-label="Delete"
@@ -248,4 +242,4 @@
               </div>
             </div>
           </div>
-{%endblock%}
+{%endblock%} 
