@@ -4,7 +4,7 @@ from django.views.generic import View
 
 from .models import DistrictChoices,CourseChoices,BatchChoices,TrainerChoices,PersonalDetails
 
-from .utility import get_admission_number,get_password
+from .utility import get_admission_number,get_password,send_email
 
 from .forms import StudentRegisterForm
 
@@ -19,6 +19,14 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from authentication.permissions import permission_role
+
+# MULTI-THREADING
+
+import threading
+
+# Date Time import.
+
+import datetime
 
 # Create your views here.
 
@@ -151,6 +159,28 @@ class RegisterView(View):
                 student.profile = profile
                 
                 student.save()
+                
+                # Sending Login Credentials to student through mail.
+                
+                subject = "Login Credentials"
+                
+                recepients = [student.email]
+                
+                template = 'email/login-credentials.html'
+                
+                join_date = student.join_date
+                
+                date_after_10_days = join_date + datetime.timedelta(days=10)
+                
+                # print(date_after_10_days)
+                
+                context = {'name':f'{student.first_name} {student.last_name}','username':username,'password':password,'date_after_10_days':date_after_10_days}
+
+                # send_email(subject,recepients,template,context)
+                
+                thread = threading.Thread(target=send_email,args=(subject,recepients,template,context))
+                
+                thread.start()
             
             return redirect('students')
         
